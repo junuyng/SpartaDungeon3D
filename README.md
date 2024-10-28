@@ -1,2 +1,2 @@
-# SprataDungeon3D
+# SpartaDungeon3D
  
