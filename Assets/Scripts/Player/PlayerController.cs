@@ -36,8 +36,7 @@ public class PlayerController : MonoBehaviour
     
     private void LateUpdate()
     {
-        throw new NotImplementedException();
-    }
+     }
 
     private void Move()
     {
