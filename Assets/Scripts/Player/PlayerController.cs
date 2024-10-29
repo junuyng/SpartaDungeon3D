@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraContainer;
     private Vector2 curMouseDelta;
     private float curRotX;
-    
+    private float curRotY;
+
     
     private const float LandingCheckDelay = 0.1f;
 
@@ -51,12 +52,18 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-        curRotX = curMouseDelta.y *lookSensitivity;
+        curRotX -= curMouseDelta.y * lookSensitivity;
+        curRotY += curMouseDelta.x * lookSensitivity;
+
         curRotX = Mathf.Clamp(curRotX, minRotX, maxRotX);
-        cameraContainer.localEulerAngles = new Vector3(-curRotX, 0, 0);
-        transform.eulerAngles += new Vector3(0, curMouseDelta.x * lookSensitivity, 0);
+
+        // 카메라의 X축 로컬 회전 (상하 회전)
+        cameraContainer.localEulerAngles = new Vector3(curRotX, 0, 0);
+        // 캐릭터의 Y축 회전 (좌우 회전)
+        transform.eulerAngles = new Vector3(0, curRotY, 0);
     }
 
+    
     private void Move()
     {
         Vector3 moveDir = transform.forward * curMovementDir.y + transform.right * curMovementDir.x;
@@ -96,13 +103,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    //애니메이션 이벤트에 등록해서 사용
+   
+    //애니메이션 이벤트에 등록해서 사용    
     private void PerformJump()
     {
         rb.AddForce(Vector2.up * statHandler.jumpPower,ForceMode.Impulse);
         StartCoroutine(CheckLanding());
     }
-
+    
     
     private IEnumerator CheckLanding()
     {
