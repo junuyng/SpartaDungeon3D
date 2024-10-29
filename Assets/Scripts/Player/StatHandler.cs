@@ -5,7 +5,8 @@ public enum StatType
 {
     MaxHp,
     MoveSpeed,
-    JumpPower
+    JumpPower,
+    ClimbSpeed
 }
 
 public enum AdjustType
@@ -21,13 +22,14 @@ public class StatHandler : MonoBehaviour
     public int maxHp { get; private set; }
     public float moveSpeed{ get; private set; }
     public float jumpPower{ get; private set; }
-
+    public float climbSpeed{ get; private set; }
 
     private void Awake()
     {
         maxHp = initStat.maxHp;
         moveSpeed = initStat.moveSpeed;
         jumpPower = initStat.jumpPower;
+        climbSpeed = initStat.climbSpeed;
     }
 
     
@@ -56,6 +58,9 @@ public class StatHandler : MonoBehaviour
                 break;
             case StatType.JumpPower:
                 jumpPower += value;
+                break;
+            case StatType.ClimbSpeed:
+                climbSpeed += value;
                 break;
         }
     }

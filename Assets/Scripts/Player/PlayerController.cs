@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Settings")] [SerializeField]
     private float moveSpeed;
-
     [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private LayerMask wallLayerMask;
     [SerializeField] private float jumpPower;
+    [SerializeField] private float wallDetectDistace; 
     private Rigidbody rb;
 
     [Header("Look Settings")] [SerializeField]
@@ -37,9 +38,9 @@ public class PlayerController : MonoBehaviour
     public event Action OnUseItemEvent;
 
 
-    //trap에 걸렸는지 확인하기 위한 필드
     public bool isOnTrap = false;
     private bool canLook = true;
+     
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -93,9 +94,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Started )
         {
-            OnJumpEvent?.Invoke();
+            if(IsGrounded() || IsWalled())
+                 OnJumpEvent?.Invoke();
         }
     }
 
@@ -141,6 +143,18 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    public bool IsWalled()
+    {
+        Ray ray = new Ray(transform.position + (transform.up * 1f), transform.forward);
+       
+        if (Physics.Raycast(ray, wallDetectDistace, wallLayerMask))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
     public bool IsGrounded()
     {
         Ray[] rays = new Ray[4]
@@ -167,7 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Ray[] rays = new Ray[4]
+        Ray[] groundRays = new Ray[4]
         {
             new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
             new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
@@ -175,10 +189,14 @@ public class PlayerController : MonoBehaviour
             new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
         };
 
-        for (int i = 0; i < rays.Length; i++)
+        for (int i = 0; i < groundRays.Length; i++)
         {
-            Gizmos.DrawRay(rays[i].origin, rays[i].direction * 0.1f);
+            Gizmos.DrawRay(groundRays[i].origin, groundRays[i].direction * 0.1f);
         }
+        
+        Gizmos.color = Color.blue;
+        Ray wallRay = new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 1f), transform.forward);
+        Gizmos.DrawRay(wallRay.origin, wallRay.direction * wallDetectDistace);
     }
 
     public void AddForceToPlayer(Vector3 vec, ForceMode forceMode)

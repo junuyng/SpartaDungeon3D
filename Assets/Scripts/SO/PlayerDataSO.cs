@@ -7,5 +7,6 @@ class PlayerDataSO : ScriptableObject
 {
     public int maxHp;
     public float moveSpeed;
+    public float climbSpeed;
     public float jumpPower;
 }
