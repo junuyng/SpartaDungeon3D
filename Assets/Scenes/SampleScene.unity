@@ -617,7 +617,19 @@ MonoBehaviour:
     m_ActionId: 5f9cb988-dbe4-479f-907e-96c26dc27d20
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 215603853}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7f65ca65-f6c0-4a52-b9fc-07c977f9d468
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -679,9 +691,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpPower: 12
-  minRotX: 0
-  maxRotX: 0
-  lookSensitivity: 0
+  minRotX: -80
+  maxRotX: 80
+  lookSensitivity: 0.01
+  cameraContainer: {fileID: 893392440}
 --- !u!114 &215603854
 MonoBehaviour:
   m_ObjectHideFlags: 0

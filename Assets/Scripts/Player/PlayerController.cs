@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Ray = UnityEngine.Ray;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")] [SerializeField]
@@ -12,16 +12,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private float jumpPower;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     private Vector2 curMovementDir;
 
-    [Header("Look Settings")] [SerializeField]
-    private float minRotX;
-
+    [Header("Look Settings")] 
+    [SerializeField] private float minRotX;
     [SerializeField] private float maxRotX;
     [SerializeField] private float lookSensitivity;
+    [SerializeField] private Transform cameraContainer;
     private Vector2 curMouseDelta;
-
+    private float curRotX;
+    
     
     private const float LandingCheckDelay = 0.1f;
 
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
@@ -42,15 +43,24 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        Look();
+    }
+
+    private void Look()
+    {
+        curRotX = curMouseDelta.y *lookSensitivity;
+        curRotX = Mathf.Clamp(curRotX, minRotX, maxRotX);
+        cameraContainer.localEulerAngles = new Vector3(-curRotX, 0, 0);
+        transform.eulerAngles += new Vector3(0, curMouseDelta.x * lookSensitivity, 0);
     }
 
     private void Move()
     {
         Vector3 moveDir = transform.forward * curMovementDir.y + transform.right * curMovementDir.x;
         moveDir *= moveSpeed;
-        moveDir.y = rigidbody.velocity.y;
+        moveDir.y = rb.velocity.y;
 
-        rigidbody.velocity = moveDir;
+        rb.velocity = moveDir;
     }
 
 
@@ -85,7 +95,7 @@ public class PlayerController : MonoBehaviour
     
     private void PerformJump()
     {
-        rigidbody.AddForce(Vector2.up * jumpPower,ForceMode.Impulse);
+        rb.AddForce(Vector2.up * jumpPower,ForceMode.Impulse);
         StartCoroutine(CheckLanding());
     }
 

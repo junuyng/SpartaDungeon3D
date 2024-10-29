@@ -24,7 +24,6 @@ public class PlayerAnimationController : AnimationController
         controller.OnMoveEvent += Move;
         controller.OnJumpEvent += Jump;
         controller.OnLandEvent += Land;
-
     }
 
 
@@ -44,8 +43,7 @@ public class PlayerAnimationController : AnimationController
             animator.SetBool(IsBackWalk, magnitude > 0.5f);
         }
     }
-
-
+    
     private void Jump()
     {
         if(isJumping)
