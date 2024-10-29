@@ -9,7 +9,6 @@ public class SpeedUPItem : ConsumableItem
     [SerializeField] private float duration; 
     protected override void ExecuteConsumableItemUsage()
     {
-        CharacterManager.Instance.player.statHandler.UpdateStat(StatType.MoveSpeed,AdjustType.Temporary, value,duration);
-        Debug.Log("SpeedUPItem 사용");
+         Debug.Log("SpeedUPItem 사용");
     }
 }
