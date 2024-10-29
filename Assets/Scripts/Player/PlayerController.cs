@@ -28,11 +28,13 @@ public class PlayerController : MonoBehaviour
 
     
     private const float LandingCheckDelay = 0.1f;
-
     public event Action<Vector2> OnMoveEvent;
     public event Action OnJumpEvent;
     public event Action OnLandEvent;
-
+    
+    //trap에 걸렸는지 확인하기 위한 필드
+    public bool isOnTrap = false;
+    
     private void Awake()
     {
         statHandler = GetComponent<StatHandler>();
@@ -41,7 +43,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(!isOnTrap)
+            Move();
     }
 
 
@@ -102,8 +105,9 @@ public class PlayerController : MonoBehaviour
             OnJumpEvent?.Invoke();
         }
     }
-    
-   
+
+
+
     //애니메이션 이벤트에 등록해서 사용    
     private void PerformJump()
     {
@@ -161,5 +165,16 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.DrawRay(rays[i].origin, rays[i].direction * 0.1f);
         }
+    }
+
+
+    public void AddForceToPlayer(Vector3 vec,ForceMode forceMode)
+    {
+        rb.velocity = Vector3.zero;
+      
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+        Vector3 adjustedForce = (cameraForward * vec.z) + (cameraRight * vec.x) + (Vector3.up * vec.y);
+        rb.AddForce(adjustedForce,forceMode);
     }
 }

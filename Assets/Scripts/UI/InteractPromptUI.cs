@@ -24,8 +24,5 @@ public class InteractPromptUI : MonoBehaviour
         text.text = str;
     }
 
-    private void OnDestroy()
-    {
-        CharacterManager.Instance.player.interactionController.OnInteractorEvent -= SetPromptUI;
-    }
+  
 }
