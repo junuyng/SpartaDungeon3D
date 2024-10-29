@@ -1,4 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+
+public enum StatType
+{
+    MaxHp,
+    MoveSpeed,
+    JumpPower
+}
+
+public enum AdjustType
+{
+    Permanent,
+    Temporary
+}
 
 public class StatHandler : MonoBehaviour
 {
@@ -15,5 +29,43 @@ public class StatHandler : MonoBehaviour
         moveSpeed = initStat.moveSpeed;
         jumpPower = initStat.jumpPower;
     }
+
     
+    public void UpdateStat(StatType statType, AdjustType adjustType, float value, float duration = 0f)
+    {
+        if (adjustType == AdjustType.Permanent)
+        {
+            ApplyStatChange(statType, value);
+        }
+        else if (adjustType == AdjustType.Temporary)
+        {
+            ApplyStatChange(statType, value);
+            StartCoroutine(RevertStatAfterDuration(statType, value, duration));
+        }
+    }
+
+    private void ApplyStatChange(StatType statType, float value)
+    {
+        switch (statType)
+        {
+            case StatType.MaxHp:
+                maxHp += (int)value;
+                break;
+            case StatType.MoveSpeed:
+                moveSpeed += value;
+                Debug.Log(moveSpeed);
+                break;
+            case StatType.JumpPower:
+                jumpPower += value;
+                break;
+        }
+    }
+
+    private IEnumerator RevertStatAfterDuration(StatType statType, float value, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        ApplyStatChange(statType, -value);  
+    }
+
+
 }
