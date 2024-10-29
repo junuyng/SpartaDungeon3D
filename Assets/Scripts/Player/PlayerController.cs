@@ -7,6 +7,8 @@ using Ray = UnityEngine.Ray;
 
 public class PlayerController : MonoBehaviour
 {
+    private StatHandler statHandler;
+    
     [Header("Movement Settings")] [SerializeField]
     private float moveSpeed;
 
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        statHandler = GetComponent<StatHandler>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -57,7 +60,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 moveDir = transform.forward * curMovementDir.y + transform.right * curMovementDir.x;
-        moveDir *= moveSpeed;
+        moveDir *= statHandler.moveSpeed;
         moveDir.y = rb.velocity.y;
 
         rb.velocity = moveDir;
@@ -93,9 +96,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    //애니메이션 이벤트에 등록해서 사용
     private void PerformJump()
     {
-        rb.AddForce(Vector2.up * jumpPower,ForceMode.Impulse);
+        rb.AddForce(Vector2.up * statHandler.jumpPower,ForceMode.Impulse);
         StartCoroutine(CheckLanding());
     }
 
