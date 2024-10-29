@@ -39,13 +39,17 @@ public class PlayerController : MonoBehaviour
 
     //trap에 걸렸는지 확인하기 위한 필드
     public bool isOnTrap = false;
-
+    private bool canLook = true;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         inventory = GetComponent<PlayerInventory>();
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     private void LateUpdate()
     {
@@ -55,9 +59,9 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
+
         curRotX -= curMouseDelta.y * lookSensitivity;
         curRotY += curMouseDelta.x * lookSensitivity;
-
         curRotX = Mathf.Clamp(curRotX, minRotX, maxRotX);
 
         // 카메라의 X축 로컬 회전 (상하 회전)
@@ -191,5 +195,12 @@ public class PlayerController : MonoBehaviour
     {
         
         rb.MovePosition(transform.position+vec);
+    }
+    
+    private void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
     }
 }
