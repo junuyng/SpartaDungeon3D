@@ -33,7 +33,7 @@ public class PlayerAnimationController : AnimationController
         bool isMove= magnitude > 0.0f;  
         
         animator.SetBool(IsWalk, isMove);
-        animator.SetFloat("WorkTest", dir.y);
+        animator.SetFloat("WorkMagnitude", dir.y);
     }
     
     private void Jump()

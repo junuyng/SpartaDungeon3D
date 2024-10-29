@@ -11,12 +11,12 @@ public class PlayerInteractionController : MonoBehaviour
     [Header("PlayerInteraction Settings")] [SerializeField]
     private float interactDistance;
     [SerializeField] private float detectIndicatorObjectDelay;
-
-
+    
     public event Action<string> OnInteractorEvent;
     private IInteractable currentInteractable;
     private Camera mainCamera;
     private PlayerCondition condition;
+    
     
     private void Awake()
     {

@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     public event Action OnJumpEvent;
     public event Action OnLandEvent;
     public event Action<int> OnScrollEvent;
+    public event Action<Vector2> OnSearchEvent;
+
     public event Action OnUseItemEvent;
 
 
@@ -125,6 +127,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnSearch(InputAction.CallbackContext context)
+    {
+        context.ReadValue<Vector2>();
+    }
+
 
     public void CallOnLandingEvent()
     {
@@ -203,9 +210,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
 
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.right;
-        Vector3 adjustedForce = (cameraForward * vec.z) + (cameraRight * vec.x) + (Vector3.up * vec.y);
+        Vector3 adjustedForce = (transform.forward * vec.z) + (transform.right * vec.x) + (Vector3.up * vec.y);
         rb.AddForce(adjustedForce, forceMode);
     }
     

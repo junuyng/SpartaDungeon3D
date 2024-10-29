@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Vector2 curMovementDir;
     private const float LandingCheckDelay = 0.1f;
-    private const float backForce = 15f;
+    private const float BackForce = 15f;
 
     
     private bool isClimb = true;
@@ -44,10 +43,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!controller.isOnTrap && !isClimb)
+        if(controller.isOnTrap)
+            return;
+        
+        if(!isClimb)
             Move();
         
-        else
+        else 
         {
             Climb();
         }
@@ -76,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (curMovementDir.magnitude == 0)
         {
-            movedir = -transform.forward * backForce + Vector3.down ;
+            movedir = -transform.forward * BackForce + Vector3.down ;
             rb.AddForce(movedir, ForceMode.Force);
         }
 

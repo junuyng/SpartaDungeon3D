@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public  class ShopObject : MonoBehaviour , IInteractable
+public  class InteractableObject : MonoBehaviour , IInteractable
 {
     public string GetInfo()
     {

@@ -17,8 +17,17 @@ public abstract class Trap : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-             ActivateTrap();
+            ActivateTrap();
         }
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ActivateTrap();
+        }
+    }
+
     
 }
