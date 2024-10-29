@@ -84,7 +84,6 @@ public class PlayerInventory : MonoBehaviour
         }
         
         CurrentItem = items[itemIndex];
-        Debug.Log(CurrentItem );
         OnChangeItemEvent?.Invoke();
     }
 

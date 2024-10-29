@@ -186,4 +186,10 @@ public class PlayerController : MonoBehaviour
         Vector3 adjustedForce = (cameraForward * vec.z) + (cameraRight * vec.x) + (Vector3.up * vec.y);
         rb.AddForce(adjustedForce, forceMode);
     }
+    
+    public void MovePositionToPlayer(Vector3 vec)
+    {
+        
+        rb.MovePosition(transform.position+vec);
+    }
 }

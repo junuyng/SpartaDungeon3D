@@ -27,7 +27,6 @@ public class ItemSlotUI: MonoBehaviour
 
     private void UpdateItemIcon()
     {
-        Debug.Log(playerInventory.CurrentItem);
         
         if (playerInventory.CurrentItem == null)
         {

@@ -53,7 +53,6 @@ public class StatHandler : MonoBehaviour
                 break;
             case StatType.MoveSpeed:
                 moveSpeed += value;
-                Debug.Log(moveSpeed);
                 break;
             case StatType.JumpPower:
                 jumpPower += value;
