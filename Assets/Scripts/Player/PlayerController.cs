@@ -208,9 +208,16 @@ public class PlayerController : MonoBehaviour
     public void AddForceToPlayer(Vector3 vec, ForceMode forceMode)
     {
         rb.velocity = Vector3.zero;
-
         Vector3 adjustedForce = (transform.forward * vec.z) + (transform.right * vec.x) + (Vector3.up * vec.y);
         rb.AddForce(adjustedForce, forceMode);
+    }
+    
+    public void InitRigidbody()
+    {
+        rb.velocity = Vector3.zero;         
+        rb.angularVelocity = Vector3.zero;    
+        rb.isKinematic = true;               
+        rb.isKinematic = false;              
     }
     
     public void MovePositionToPlayer(Vector3 vec)

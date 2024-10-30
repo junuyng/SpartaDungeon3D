@@ -30,11 +30,3 @@ public abstract class Trap : MonoBehaviour
     }
     
 }
-
-public class LaunchingPad : Trap
-{
-    protected override void ActivateTrap()
-    {
-        
-    }
-}
