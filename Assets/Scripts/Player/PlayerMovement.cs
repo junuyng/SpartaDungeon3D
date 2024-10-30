@@ -65,10 +65,9 @@ public class PlayerMovement : MonoBehaviour
     
     private void Move()
     {
-        Vector3 moveDir = transform.forward * curMovementDir.y + transform.right * curMovementDir.x;
-        moveDir *= statHandler.moveSpeed;
-        moveDir.y = rb.velocity.y;
-        rb.velocity = moveDir;
+        Vector3 targetVelocity = (transform.forward * curMovementDir.y + transform.right * curMovementDir.x) * statHandler.moveSpeed;
+        targetVelocity.y = rb.velocity.y;
+        rb.velocity = targetVelocity;
     }
     
     
@@ -85,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         movedir = transform.up * curMovementDir.y + transform.right * curMovementDir.x;
         rb.AddForce(movedir * statHandler.climbSpeed, ForceMode.Force);
     }
-
 
     
     

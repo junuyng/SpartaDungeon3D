@@ -21,10 +21,9 @@ public class HealthUI : MonoBehaviour
         Init();
         CharacterManager.Instance.player.condition.OnDamgeEvent += UpdateHearts;
         CharacterManager.Instance.player.condition.OnHealEvent += UpdateHearts;
-
     }
 
-
+    
     private void Init()
     {
         

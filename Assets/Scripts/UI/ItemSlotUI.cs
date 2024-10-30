@@ -7,17 +7,12 @@ using UnityEngine.UI;
 public class ItemSlotUI: MonoBehaviour
 {
 
-    [SerializeField] private Image icon ;
+    [SerializeField] protected Image icon ;
     
     private int itemIndex = 0;
-    private PlayerInventory playerInventory;
+     
 
-    private void Awake()
-    {
-        playerInventory = CharacterManager.Instance.player.inventory;
-    }
-
-    private void Start()
+    protected virtual void Start()
     {
         icon.enabled = false;
         CharacterManager.Instance.player.inventory.OnChangeItemEvent += UpdateItemIcon;
@@ -25,10 +20,10 @@ public class ItemSlotUI: MonoBehaviour
     }
 
 
-    private void UpdateItemIcon()
+    protected void UpdateItemIcon()
     {
         
-        if (playerInventory.CurrentItem == null)
+        if (CharacterManager.Instance.player.inventory.CurrentItem == null)
         {
             icon.enabled = false;
             icon.sprite = null;
@@ -38,7 +33,7 @@ public class ItemSlotUI: MonoBehaviour
         if(!icon.enabled )
              icon.enabled = true;
        
-        icon.sprite = playerInventory.CurrentItem.data.icon;
+        icon.sprite = CharacterManager.Instance.player.inventory.CurrentItem.data.icon;
     }
 
 }

@@ -36,9 +36,8 @@ public class PlayerController : MonoBehaviour
     public event Action OnLandEvent;
     public event Action<int> OnScrollEvent;
     public event Action<Vector2> OnSearchEvent;
-
-    public event Action OnUseItemEvent;
-
+    
+ 
 
     public bool isOnTrap = false;
     private bool canLook = true;
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public bool CanUseItem()
+      public bool CanUseItem()
     {
         if (Time.time - lastItemUseTime >= useItemDelay)
         {
@@ -216,7 +215,6 @@ public class PlayerController : MonoBehaviour
     
     public void MovePositionToPlayer(Vector3 vec)
     {
-        
         rb.MovePosition(transform.position+vec);
     }
     

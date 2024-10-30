@@ -6,16 +6,21 @@ public class PlayerInventory : MonoBehaviour
 {   
     
     [SerializeField]private List<Item> items = new List<Item>();
-   
+    
     public Item CurrentItem { get; private set; }
+    public EquipmentItem EquipmentItem { get; private set; }
+
     private int itemIndex =0;
+    private PlayerController controller;
+
     
     public event Action OnChangeItemEvent;
     public event Action OnAddItemEvent;
     public event Action OnUseItemEvent;
+    public event Action OnEquipItemEvent;
+    public event Action OnUnEquipItemEvent;
 
-    private PlayerController controller;
-
+    
     private void Awake()
     {
         controller = GetComponent<PlayerController>();
@@ -27,8 +32,28 @@ public class PlayerInventory : MonoBehaviour
     }
 
 
-    
-    
+    public void RemoveEquipItem()
+    {
+        EquipmentItem.RemoveStat();
+        AddItem(EquipmentItem);
+        EquipmentItem = null;
+        OnUnEquipItemEvent?.Invoke();
+    }
+
+    public void EquipItem(EquipmentItem equipmentItem)
+    {
+        if(EquipmentItem == null)
+            EquipmentItem = equipmentItem;
+        
+        else
+        {
+            RemoveEquipItem();
+            EquipmentItem = equipmentItem;
+        }
+        
+        OnEquipItemEvent?.Invoke();
+    }
+
     public void AddItem(Item item)
     {
         

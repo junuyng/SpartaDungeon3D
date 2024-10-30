@@ -93,11 +93,11 @@ public class MovingPlatform : MonoBehaviour
     }
 
 
+    //TODO 1. 플랫폼 움직이는 속도를 줄인다. 2. Collider를 변경해서 안정성을 키운다. 3. 자식으로 만들어서 처리 
     private void OnCollisionStay(Collision other)
     {
         if (other.gameObject.CompareTag("Player") && !isPlayerMove && isMoving)
         {
-            Vector3 platformMovement = transform.position - lastPosition; 
             Rigidbody playerRb = other.gameObject.GetComponent<Rigidbody>();
             playerRb.MovePosition(playerRb.position + direction * moveSpeed * Time.fixedDeltaTime);
         }
