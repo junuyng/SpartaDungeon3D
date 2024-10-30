@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void LateUpdate()
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSearch(InputAction.CallbackContext context)
     {
-        context.ReadValue<Vector2>();
+        OnSearchEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
 

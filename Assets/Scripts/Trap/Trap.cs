@@ -28,6 +28,13 @@ public abstract class Trap : MonoBehaviour
             ActivateTrap();
         }
     }
-
     
+}
+
+public class LaunchingPad : Trap
+{
+    protected override void ActivateTrap()
+    {
+        
+    }
 }

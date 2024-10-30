@@ -11,4 +11,13 @@ public  class InteractableObject : MonoBehaviour , IInteractable
     public void OnInteract()
     {
     }
+
+    
+    public void InteractBySearch()
+    {
+    }
+    
+    public void UnInteractBySearch()
+    {
+    }
 }
